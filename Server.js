@@ -2,22 +2,27 @@ import net from 'net'
 const server = net.createServer()
 const users = []
 const port = 3434
-const host = "192.168.100.246";
+const host = "192.168.89.207";
 const nickname = {};
 
 server.on('connection', (client) => {
     users.push(client) 
-    client.write("Bienvenido al chat para conversar")
     if(nickname [client.remoteAddress]=== undefined){
         nickname[client.remoteAddress] = client.remoteAddress;
     }
-    client.write("\nPor favor escribe un apodo");
+    if(nickname[client.remoteAddress]===client.remoteAddress){
+        client.write("Bienvenido al chat para conversar ");
+        client.write("\nPor favor escribe un apodo");
+    }
+    if(nickname[client.remoteAddress]!= client.remoteAddress){
+    client.write("\x1b[34m Bienvenido al chat para conversar\x1b[33m " + nickname[client.remoteAddress]+"\x1b[0m");
+    }
     console.log("\x1b[32m"+`${nickname[client.remoteAddress]} ha entrado al servidor`+"\x1b[0m") 
     client.on('data', (data) => {
         if(nickname[client.remoteAddress]=== client.remoteAddress){
             for(const key in nickname){
                 if(nickname[key]=== data.toString().trim()){
-                    client.write("El usuario ya está en uso");
+                    client.write("El usuario ya está en uso, por favor escribe otro nombre de usuario:");
                     return;
                 }
             }

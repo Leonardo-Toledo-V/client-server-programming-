@@ -2,7 +2,7 @@ import net from 'net'
 const client = new net.Socket();
 
 const port = 3434
-const host = "192.168.100.246"
+const host = "192.168.89.207"
 
 client.connect(port, host);
 
